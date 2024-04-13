@@ -4,30 +4,21 @@ import relativeTime from "../../lib/relativeTime";
 import { createResponse } from "../../lib/action";
 import Comment from "../../lib/ui/Comment";
 
-export default async function RoomView({
-  params,
-}: {
-  params: { user: string; code: string };
-}) {
+export default async function RoomView({ params }: { params: { user: string; code: string } }) {
   const roomData = await getRoomData(params.code);
   if (!roomData) notFound();
 
   return (
     <div className="flex flex-col bg-purple-700 min-h-screen w-screen items-center overflow-scroll">
       <div className="flex flex-col items-center justify-center mt-8">
-        <h1 className="text-yellow-400 text-5xl font-semibold text-center">
-          {roomData.question}
-        </h1>
+        <h1 className="text-yellow-400 text-5xl font-semibold text-center">{roomData.question}</h1>
         <h2 className="text-gray-300 text-2xl">
-          Asked by teacher{" "}
-          {relativeTime(new Date(), new Date(roomData.timestamp))}
+          Asked by teacher {relativeTime(new Date(), new Date(roomData.timestamp))}
         </h2>
+        <h2 className="text-gray-300 text-2xl">Code is <span className="font-extrabold">{params.code}</span></h2>
       </div>
       <div className="h-[15vh] w-[30vw] rounded-md bg-yellow-400 mt-24 shadow-2xl">
-        <form
-          className="flex flex-col relative h-full bg-yellow-400 shadow-lg rounded-md"
-          action={createResponse}
-        >
+        <form className="flex flex-col relative h-full bg-yellow-400 shadow-lg rounded-md" action={createResponse}>
           <textarea
             name="response"
             className="w-[90%] h-[45%] mt-3 absolute ml-3 text-black placeholder:text-black bg-yellow-400 resize-none "
