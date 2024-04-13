@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::placeholder {
+    color: white;
+}
+
+.input {
+    @apply
+    rounded-md text-white bg-purple-700 border-2 shadow-lg h-[5vh] placeholder:text-white placeholder:pl-[.5vw];
+}
+
+.btn {
+    @apply
+    ml-[1.5vw] rounded-md w-[10vw] h-[5vh] mt-[3vh] shadow-lg hover:bg-purple-700 transition-colors ease-in hover:text-white
+}
+
+.errorBtn {
+    @apply
+    rounded-md w-[20vw] h-[5vh] shadow-lg bg-red-400 transition-colors ease-in text-white hover:bg-red-500 hover:text-black hover:shadow-fuchsia-800
+}

@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  code  String @id
+  question String
+  timestamp DateTime 
+  
+  responses Response[] 
+}
+
+model Response {
+  poster String 
+  answer String
+  id Int @default(autoincrement())
+
+  roomCode String
+  room Room @relation(fields: [roomCode], references: [code])
+
+  replies Reply[]
+  @@id([roomCode, id])
+
+}
+
+model Reply {
+  poster String 
+  reply String 
+  id Int @default(autoincrement())
+
+  responseId Int 
+  roomCode String
+
+  response Response @relation(fields: [responseId, roomCode], references: [id, roomCode])
+
+  @@id([responseId, id])
+}
